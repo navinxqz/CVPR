@@ -1,19 +1,25 @@
 import cv2
 import numpy as np
 import tensorflow as tf
-import pickle
 print(f"TensorFlow version: {tf.__version__}")
 from tensorflow import keras
 
 # Load the saved model
-model = keras.models.load_model('output/face_recognition_model.h5')
+model = keras.models.load_model('face_recognition_model(2).h5')
 print("Model loaded successfully!")
 
-# Load the label encoder
-with open('label_encoder.pkl', 'rb') as f:
-    label_encoder = pickle.load(f)
-class_names = label_encoder.classes_
-print(f"Classes loaded: {class_names}")
+# Option 1: Load from pickle file (requires scikit-learn)
+try:
+    import pickle
+    with open('label_encoder(2).pkl', 'rb') as f:
+        label_encoder = pickle.load(f)
+    class_names = label_encoder.classes_
+    print(f"Classes loaded from pickle: {class_names}")
+except (ImportError, FileNotFoundError) as e:
+    # Option 2: Hardcode class names (must be in ALPHABETICAL order!)
+    print("Warning: Could not load pickle file, using hardcoded class names")
+    class_names = ['avoy', 'rakin', 'yousha']  # Alphabetical order!
+    print(f"Classes: {class_names}")
 
 # Load face cascade for face detection
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
@@ -70,7 +76,7 @@ while True:
             confidence = predictions[0][predicted_class]
             
             # Only show predictions with reasonable confidence
-            if confidence > 0.5:  # Adjust threshold as needed
+            if confidence > 0.8:  # Increased threshold - adjust between 0.6-0.9
                 detections.append({
                     'bbox': (x, y, w, h),
                     'name': predicted_name,
