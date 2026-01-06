@@ -1,0 +1,6 @@
+numpy
+opencv-python
+tensorflow
+matplotlib
+scikit-learn==1.8.0
+scipy==1.16.3

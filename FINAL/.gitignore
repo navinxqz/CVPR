@@ -1,0 +1,29 @@
+# Virtual Environment
+model/
+
+# Dataset images (too large for GitHub)
+Dataset/
+
+# Trained models (too large for GitHub)
+output/*.h5
+output/*.keras
+output/*.pkl
+*.h5
+*.keras
+*.pkl
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Environment variables
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
